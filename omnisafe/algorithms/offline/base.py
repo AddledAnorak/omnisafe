@@ -148,7 +148,7 @@ class BaseOffline(BaseAlgo):
                 self.epoch = (step + 1) // self._cfgs.algo_cfgs.steps_per_epoch
                 self._logger.store(**{'Time/Update': time.time() - epoch_time})
                 eval_time = time.time()
-                self._evaluate()
+                # self._evaluate()
 
                 self._logger.store(
                     {
