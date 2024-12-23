@@ -85,11 +85,7 @@ class BaseOffline(BaseAlgo):
         )
 
     def _init_env(self) -> None:
-        dataset_to_env_id = {
-            'OfflinePointGoal2Gymnasium-v0': 'SafetyPointGoal2-v0'
-        }
-        env_sim_id = dataset_to_env_id[self._env_id]
-        self._env = OfflineAdapter(env_sim_id, self._seed, self._cfgs)
+        self._env = OfflineAdapter(self._env_id, self._seed, self._cfgs)
 
     def _init_log(self) -> None:
         """Log info each epoch.
