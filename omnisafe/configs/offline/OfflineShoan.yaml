@@ -11,6 +11,8 @@ defaults:
     total_steps: 1000000
     # dataset name
     dataset: OfflinePointGoal2Gymnasium-v0
+    # evaluate_epoisodes
+    evaluate_epoisodes: 10
     # parallel, offline only supports 1
     parallel: 1
     # vector_env_nums, offline only supports 1
