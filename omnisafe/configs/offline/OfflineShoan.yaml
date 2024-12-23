@@ -1,0 +1,68 @@
+defaults:
+  # seed for random number generator
+  seed: 0
+  # training configurations
+  train_cfgs:
+    # device to use for training, options: cpu, cuda, cuda:0, cuda:0,1, etc.
+    device: cpu
+    # number of threads for torch
+    torch_threads: 16
+    # total number of steps to train
+    total_steps: 1000000
+    # dataset name
+    dataset: OfflinePointGoal2Gymnasium-v0
+    # parallel, offline only supports 1
+    parallel: 1
+    # vector_env_nums, offline only supports 1
+    vector_env_nums: 1
+  # algorithm configurations
+  algo_cfgs:
+
+    # number of actions to be sampled
+    sampled_action_num: 20
+    # weight given to minimum value critic
+    minimum_weighting: 0.75
+    # batch size
+    batch_size: 256
+    # gamma used in RL
+    gamma: 0.99
+    # step per epoch, algo will log and eval every epoch
+    steps_per_epoch: 1000
+    # The soft update coefficient
+    polyak: 0.005
+    # cost limit
+    cost_limit: 25.0
+    # coefficient to support behaviour cloning
+    bc_coeff: 1.0
+  # logger configurations
+  logger_cfgs:
+    # use wandb for logging
+    use_wandb: False
+    # wandb project name
+    wandb_project: omnisafe
+    # use tensorboard for logging
+    use_tensorboard: True
+    # save model frequency
+    save_model_freq: 100
+    # save logger path
+    log_dir: "./runs"
+  # model configurations
+  model_cfgs:
+    # The mode to initiate the weight of network, choosing from "kaiming_uniform", "xavier_normal", "glorot" and "orthogonal".
+    weight_initialization_mode: "kaiming_uniform"
+    # actor's cfgs
+    actor:
+      # Size of hidden layers
+      hidden_sizes: [256, 256, 256]
+      # Type of activation function, choosing from "tanh", "relu", "sigmoid", "identity", "softplus"
+      activation: relu
+      # Learning rate of model
+      lr: 0.001
+    # critic's cfgs
+    critic:
+      # Size of hidden layers
+      hidden_sizes: [256, 256, 256]
+      # Type of activation function, choosing from "tanh", "relu", "sigmoid", "identity", "softplus"
+      activation: relu
+      # Learning rate of model
+      lr: 0.001
