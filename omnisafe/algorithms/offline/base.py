@@ -85,7 +85,11 @@ class BaseOffline(BaseAlgo):
         )
 
     def _init_env(self) -> None:
-        self._env = OfflineAdapter(self._env_id, self._seed, self._cfgs)
+        dataset_to_env_id = {
+            'OfflinePointGoal2Gymnasium-v0': 'SafetyPointGoal2-v0'
+        }
+        env_sim_id = dataset_to_env_id[self._env_id]
+        self._env = OfflineAdapter(env_sim_id, self._seed, self._cfgs)
 
     def _init_log(self) -> None:
         """Log info each epoch.
@@ -148,7 +152,7 @@ class BaseOffline(BaseAlgo):
                 self.epoch = (step + 1) // self._cfgs.algo_cfgs.steps_per_epoch
                 self._logger.store(**{'Time/Update': time.time() - epoch_time})
                 eval_time = time.time()
-                # self._evaluate()
+                self._evaluate()
 
                 self._logger.store(
                     {
