@@ -39,11 +39,11 @@ defaults:
   # logger configurations
   logger_cfgs:
     # use wandb for logging
-    use_wandb: False
+    use_wandb: True
     # wandb project name
-    wandb_project: omnisafe
+    wandb_project: OfflineShoan
     # use tensorboard for logging
-    use_tensorboard: True
+    use_tensorboard: False
     # save model frequency
     save_model_freq: 100
     # save logger path
