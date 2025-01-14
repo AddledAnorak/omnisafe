@@ -4,7 +4,7 @@ defaults:
   # training configurations
   train_cfgs:
     # device to use for training, options: cpu, cuda, cuda:0, cuda:0,1, etc.
-    device: cpu
+    device: cuda
     # number of threads for torch
     torch_threads: 16
     # total number of steps to train
@@ -19,7 +19,6 @@ defaults:
     vector_env_nums: 1
   # algorithm configurations
   algo_cfgs:
-
     # number of actions to be sampled
     sampled_action_num: 20
     # weight given to minimum value critic
@@ -43,7 +42,7 @@ defaults:
     # wandb project name
     wandb_project: OfflineShoan
     # use tensorboard for logging
-    use_tensorboard: False
+    use_tensorboard: True
     # save model frequency
     save_model_freq: 100
     # save logger path

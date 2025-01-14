@@ -75,7 +75,8 @@ class OfflineShoan(BaseOffline):
             self._cfgs.model_cfgs.actor.hidden_sizes,
             activation=self._cfgs.model_cfgs.actor.activation,
             weight_initialization_mode=self._cfgs.model_cfgs.weight_initialization_mode,
-        )
+        ).to(self._device)
+
         assert isinstance(
             self._cfgs.model_cfgs.actor.lr,
             float,

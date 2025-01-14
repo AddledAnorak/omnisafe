@@ -36,19 +36,21 @@ from omnisafe.utils.config import Config
 # changes have been made by shoan raj (@AddledAnorak)
 class DSRLDataset:
     def __init__(self, 
+        device: torch.device,
         env_id: str = "OfflinePointGoal2Gymnasium-v0",
         batch_size: int = 256,
         **kwargs
     ):
         env = gym.make(env_id)
+        self._device = device
         self.batch_size = batch_size
         dataset = env.get_dataset()
-        self.obs = torch.tensor(dataset['observations'], dtype=torch.float32)
-        self.actions = torch.tensor(dataset['actions'], dtype=torch.float32)
-        self.costs = torch.tensor(dataset['costs'], dtype=torch.float32)
-        self.rewards = torch.tensor(dataset['rewards'], dtype=torch.float32)
-        self.next_obs = torch.tensor(dataset['next_observations'], dtype=torch.float32)
-        self.dones = torch.tensor(dataset['terminals'] + dataset['timeouts'], dtype=torch.float32)
+        self.obs = torch.tensor(dataset['observations'], dtype=torch.float32).to(self._device)
+        self.actions = torch.tensor(dataset['actions'], dtype=torch.float32).to(self._device)
+        self.costs = torch.tensor(dataset['costs'], dtype=torch.float32).to(self._device)
+        self.rewards = torch.tensor(dataset['rewards'], dtype=torch.float32).to(self._device)
+        self.next_obs = torch.tensor(dataset['next_observations'], dtype=torch.float32).to(self._device)
+        self.dones = torch.tensor(dataset['terminals'] + dataset['timeouts'], dtype=torch.float32).to(self._device)
 
     
     def sample(self):
@@ -79,6 +81,7 @@ class BaseOffline(BaseAlgo):
         # self._dataset = OfflineDataset(
         self._dataset = DSRLDataset(
             # self._cfgs.train_cfgs.dataset,
+            device=self._device,
             env_id=self._cfgs.train_cfgs.dataset,
             batch_size=self._cfgs.algo_cfgs.batch_size,
             # device=self._device,
